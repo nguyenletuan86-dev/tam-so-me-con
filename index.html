@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tâm Số Học Mẹ & Con - Báo cáo tương tác chuyên sâu</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --blue-900: #172554;
+      --blue-800: #1e3a8a;
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --violet-700: #6d28d9;
+      --violet-600: #7c3aed;
+      --pink-600: #db2777;
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --green-700: #15803d;
+      --green-50: #f0fdf4;
+      --amber-700: #b45309;
+      --amber-50: #fffbeb;
+      --rose-700: #be123c;
+      --rose-50: #fff1f2;
+      --shadow: 0 20px 60px rgba(15, 23, 42, 0.16);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--slate-800);
+      background: #eef2ff;
+      line-height: 1.65;
+    }
+
+    .page-bg {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(124, 58, 237, 0.18), transparent 32%),
+        radial-gradient(circle at 88% 12%, rgba(37, 99, 235, 0.22), transparent 28%),
+        linear-gradient(180deg, #eff6ff 0%, #f8fafc 45%, #eef2ff 100%);
+      padding: 28px 16px 60px;
+    }
+
+    .app-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #172554 0%, #2563eb 48%, #7c3aed 100%);
+      color: #ffffff;
+      border-radius: 32px;
+      padding: 36px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      right: -120px;
+      top: -160px;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 54px);
+      line-height: 1.1;
+      letter-spacing: -1.2px;
+      max-width: 880px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 18px;
+      max-width: 850px;
+      color: #e0e7ff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 410px 1fr;
+      gap: 22px;
+      margin-top: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 20px 22px;
+      border-bottom: 1px solid #e2e8f0;
+      background: #f8fafc;
+    }
+
+    .panel-header h2 {
+      margin: 0 0 4px;
+      font-size: 21px;
+      color: #172554;
+    }
+
+    .panel-header p {
+      margin: 0;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .form-body { padding: 22px; }
+
+    .person-box {
+      padding: 18px;
+      border-radius: 18px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 16px;
+    }
+
+    .person-box h3 {
+      margin: 0 0 14px;
+      color: #1e3a8a;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 7px;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 15px;
+      outline: none;
+      color: #0f172a;
+      transition: border 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    .field { margin-bottom: 14px; }
+
+    .hint {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.15s;
+    }
+
+    button:hover { opacity: 0.92; }
+    button:active { transform: translateY(1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #ffffff;
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-secondary {
+      background: #e0e7ff;
+      color: #1e3a8a;
+    }
+
+    .btn-light {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #e2e8f0;
+    }
+
+    .error-box {
+      display: none;
+      margin-top: 14px;
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      color: #be123c;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .empty-state {
+      padding: 42px 28px;
+      text-align: center;
+      color: #64748b;
+    }
+
+    .empty-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 16px;
+      border-radius: 24px;
+      background: #eff6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2563eb;
+      font-size: 34px;
+    }
+
+    .report-actions {
+      display: none;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      padding: 16px;
+      border-bottom: 1px solid #e2e8f0;
+      background: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    #report-content {
+      background: #ffffff;
+      color: #111827;
+      padding: 0;
+    }
+
+    .report {
+      padding: 30px;
+    }
+
+    .report-cover {
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      border-radius: 24px;
+      padding: 26px;
+      margin-bottom: 22px;
+    }
+
+    .report-cover h2 {
+      margin: 0 0 10px;
+      color: #172554;
+      font-size: 30px;
+      line-height: 1.15;
+    }
+
+    .report-cover p {
+      margin: 0;
+      color: #334155;
+      font-size: 15px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .meta-card {
+      background: #ffffff;
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .meta-card strong {
+      display: block;
+      color: #172554;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .meta-card span {
+      color: #475569;
+      font-size: 14px;
+    }
+
+    .section {
+      margin-top: 26px;
+      page-break-inside: avoid;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      color: #172554;
+      font-size: 23px;
+      line-height: 1.25;
+    }
+
+    .section-title .num {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: #2563eb;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex: 0 0 auto;
+    }
+
+    .sub-title {
+      margin: 20px 0 10px;
+      font-size: 18px;
+      color: #1e3a8a;
+    }
+
+    .number-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .number-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 14px 12px;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .number-card .label {
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .number-card .value {
+      display: block;
+      margin-top: 6px;
+      font-size: 32px;
+      color: #1d4ed8;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .info-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 18px;
+      page-break-inside: avoid;
+    }
+
+    .info-card h4 {
+      margin: 0 0 8px;
+      color: #1e3a8a;
+      font-size: 17px;
+    }
+
+    .info-card p {
+      margin: 0 0 10px;
+      color: #334155;
+    }
+
+    .info-card ul, .section ul, .section ol {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    .info-card li, .section li {
+      margin-bottom: 7px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #1e3a8a;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .insight-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid #2563eb;
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin: 12px 0;
+    }
+
+    .insight-box.green { border-left-color: #15803d; background: #f0fdf4; }
+    .insight-box.amber { border-left-color: #b45309; background: #fffbeb; }
+    .insight-box.rose { border-left-color: #be123c; background: #fff1f2; }
+    .insight-box.violet { border-left-color: #7c3aed; background: #f5f3ff; }
+
+    .axis-card {
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+
+    .axis-card h4 {
+      margin: 0 0 8px;
+      color: #172554;
+      font-size: 18px;
+    }
+
+    .axis-card p { margin: 0 0 10px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 14px;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    th {
+      background: #1e3a8a;
+      color: #ffffff;
+      text-align: left;
+      padding: 12px;
+      border: 1px solid #1e40af;
+    }
+
+    td {
+      padding: 12px;
+      border: 1px solid #e2e8f0;
+      vertical-align: top;
+      background: #ffffff;
+    }
+
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    .script-box {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 18px;
+      padding: 18px;
+      margin: 12px 0;
+    }
+
+    .script-box strong { color: #6d28d9; }
+
+    .footer-note {
+      margin-top: 28px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      font-size: 14px;
+    }
+
+    .pdf-safe, .pdf-safe * {
+      color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      box-shadow: none !important;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .report-actions { position: relative; grid-template-columns: 1fr; }
+      .info-grid, .meta-grid { grid-template-columns: 1fr; }
+      .number-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero { padding: 26px; }
+      .report { padding: 22px; }
+    }
+
+    @media (max-width: 560px) {
+      .page-bg { padding: 14px 10px 40px; }
+      .hero { border-radius: 22px; }
+      .panel { border-radius: 18px; }
+      .number-grid { grid-template-columns: 1fr; }
+      .report-cover h2 { font-size: 24px; }
+    }
+
+    @media print {
+      body { background: #ffffff; }
+      .hero, .input-panel, .report-actions, .empty-state { display: none !important; }
+      .page-bg { padding: 0; background: #ffffff; }
+      .app-shell { max-width: none; }
+      .layout { display: block; }
+      .panel { border: none; box-shadow: none; }
+      .report { padding: 0; }
+      #report-content { display: block !important; }
+      .section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-bg">
+    <div class="app-shell">
+      <header class="hero">
+        <div class="brand-pill">✨ Dream Mandala · Tâm số học ứng dụng</div>
+        <h1>Phần mềm đọc Tâm Số Học Mẹ & Con</h1>
+        <p>Nhập họ tên và ngày sinh của mẹ, con để nhận báo cáo chuyên sâu về 4 chỉ số cốt lõi, đặc biệt là cách tương tác, giao tiếp, động viên và hóa giải mâu thuẫn phù hợp với từng bé.</p>
+      </header>
+
+      <main class="layout">
+        <aside class="panel input-panel">
+          <div class="panel-header">
+            <h2>Thông tin đầu vào</h2>
+            <p>Chỉ cần nhập họ tên đầy đủ và ngày sinh theo định dạng DD/MM/YYYY.</p>
+          </div>
+
+          <form class="form-body" id="numerologyForm">
+            <div class="person-box">
+              <h3>👩 Thông tin của mẹ</h3>
+              <div class="field">
+                <label for="motherName">Họ và tên đầy đủ của mẹ</label>
+                <input id="motherName" type="text" placeholder="Ví dụ: Nguyễn Thị An" autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="motherDob">Ngày tháng năm sinh của mẹ</label>
+                <input id="motherDob" type="text" placeholder="Ví dụ: 15/08/1990" inputmode="numeric" />
+                <div class="hint">Có thể nhập 15/08/1990 hoặc 15-08-1990.</div>
+              </div>
+            </div>
+
+            <div class="person-box">
+              <h3>🧒 Thông tin của con</h3>
+              <div class="field">
+                <label for="childName">Họ và tên đầy đủ của con</label>
+                <input id="childName" type="text" placeholder="Ví dụ: Nguyễn Minh Anh" autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="childDob">Ngày tháng năm sinh của con</label>
+                <input id="childDob" type="text" placeholder="Ví dụ: 20/05/2018" inputmode="numeric" />
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" type="submit">Tạo báo cáo chuyên sâu</button>
+              <button class="btn-secondary" type="button" onclick="fillExample()">Điền dữ liệu mẫu</button>
+              <button class="btn-light" type="button" onclick="clearForm()">Làm mới</button>
+            </div>
+            <div id="errorBox" class="error-box"></div>
+          </form>
+        </aside>
+
+        <section class="panel">
+          <div class="report-actions" id="reportActions">
+            <button class="btn-primary" type="button" onclick="exportPDF()">Xuất báo cáo PDF</button>
+            <button class="btn-secondary" type="button" onclick="window.print()">In / Lưu PDF</button>
+            <button class="btn-light" type="button" onclick="copyReportText()">Copy nội dung</button>
+          </div>
+
+          <div class="empty-state" id="emptyState">
+            <div class="empty-icon">🧭</div>
+            <h2>Báo cáo sẽ hiển thị tại đây</h2>
+            <p>Sau khi nhập thông tin, hệ thống sẽ tự tính Đường đời, Sứ mệnh, Linh hồn, Năm cá nhân và tạo bản tư vấn tương tác mẹ-con chuyên sâu.</p>
+          </div>
+
+          <div id="report-content"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const LETTER_VALUES = {
+      A: 1, J: 1, S: 1,
+      B: 2, K: 2, T: 2,
+      C: 3, L: 3, U: 3,
+      D: 4, M: 4, V: 4,
+      E: 5, N: 5, W: 5,
+      F: 6, O: 6, X: 6,
+      G: 7, P: 7, Y: 7,
+      H: 8, Q: 8, Z: 8,
+      I: 9, R: 9
+    };
+
+    const VOWELS = new Set(["A", "E", "I", "O", "U", "Y"]);
+
+    const PROFILES = {
+      1: {
+        name: "Người tiên phong",
+        core: "độc lập, chủ động, có nhu cầu được tự quyết và được công nhận năng lực",
+        gift: "dám bắt đầu, nhanh ra quyết định, có tinh thần dẫn dắt và không thích phụ thuộc quá nhiều",
+        pressure: "dễ căng khi bị kiểm soát, bị ra lệnh hoặc bị phủ nhận ý kiến",
+        need: "cần được tin tưởng, được giao quyền lựa chọn và được ghi nhận nỗ lực cá nhân",
+        childNeed: "Con cần cảm giác: ‘Mẹ tin con làm được’. Khi mẹ trao quyền vừa đủ, con sẽ hợp tác tốt hơn.",
+        motherStrength: "Mẹ có khả năng làm gương bằng sự quyết đoán, tạo động lực và kéo con tiến lên.",
+        motherRisk: "Mẹ có thể vô tình quá mạnh, quá nhanh, khiến con cảm thấy mình bị ép phải theo nhịp của mẹ.",
+        communication: "Nên dùng câu hỏi mở có lựa chọn: ‘Con muốn bắt đầu bằng cách nào?’",
+        praise: "Khen vào sự chủ động: ‘Mẹ thấy con đã tự nghĩ cách giải quyết, điều đó rất đáng quý.’",
+        avoid: "Tránh ra lệnh cứng, so sánh năng lực hoặc nói: ‘Con phải nghe mẹ ngay.’"
+      },
+      2: {
+        name: "Người kết nối cảm xúc",
+        core: "nhạy cảm, tinh tế, cần sự an toàn cảm xúc và sự lắng nghe",
+        gift: "biết quan sát cảm xúc người khác, dễ hợp tác, mềm mại và giàu lòng trắc ẩn",
+        pressure: "dễ tổn thương khi bị lớn tiếng, bị lạnh lùng hoặc bị so sánh",
+        need: "cần được ôm ấp, được hỏi cảm nhận và được xác nhận rằng cảm xúc của mình là quan trọng",
+        childNeed: "Con cần mẹ nhẹ giọng, lắng nghe trước khi sửa sai. Khi an toàn cảm xúc, con sẽ mở lòng.",
+        motherStrength: "Mẹ dễ tạo không khí ấm áp, biết quan tâm và giữ sự gắn kết trong gia đình.",
+        motherRisk: "Mẹ có thể quá lo, quá nhạy với phản ứng của con và dễ chiều theo cảm xúc nhất thời.",
+        communication: "Nên bắt đầu bằng: ‘Mẹ muốn hiểu cảm giác của con trước.’",
+        praise: "Khen vào sự tinh tế: ‘Mẹ thấy con biết quan tâm đến người khác.’",
+        avoid: "Tránh quát, im lặng trừng phạt hoặc nói: ‘Có thế mà cũng khóc.’"
+      },
+      3: {
+        name: "Người biểu đạt sáng tạo",
+        core: "vui vẻ, thích thể hiện, cần được nói ra, được sáng tạo và được ghi nhận",
+        gift: "giàu trí tưởng tượng, có khả năng kể chuyện, truyền cảm hứng và làm không khí nhẹ nhàng hơn",
+        pressure: "dễ chán, dễ phân tán hoặc thu mình khi bị chê trước mặt người khác",
+        need: "cần không gian biểu đạt, được khen cụ thể và được hướng dẫn bằng sự vui vẻ",
+        childNeed: "Con cần được nói, được kể, được chơi và được thể hiện cảm xúc theo cách riêng.",
+        motherStrength: "Mẹ có thể đem lại niềm vui, sự sáng tạo và năng lượng tích cực cho con.",
+        motherRisk: "Mẹ có thể nói nhiều, góp ý nhanh, làm con cảm thấy mình chưa được nghe hết.",
+        communication: "Nên dùng hình ảnh, câu chuyện, trò chơi hoặc câu hỏi: ‘Con kể cho mẹ nghe theo cách của con nhé.’",
+        praise: "Khen vào cách biểu đạt: ‘Mẹ thích cách con diễn đạt ý tưởng đó.’",
+        avoid: "Tránh cắt lời, chê bai trước đám đông hoặc nói: ‘Con nói linh tinh quá.’"
+      },
+      4: {
+        name: "Người xây nền tảng",
+        core: "thực tế, cần trật tự, cần quy trình rõ ràng và cảm giác ổn định",
+        gift: "chăm chỉ, bền bỉ, có trách nhiệm, thích làm việc có kế hoạch và có tiêu chuẩn",
+        pressure: "dễ căng khi thay đổi đột ngột, bị thúc ép mà không có hướng dẫn cụ thể",
+        need: "cần lịch trình rõ, quy tắc nhất quán và từng bước nhỏ để làm theo",
+        childNeed: "Con cần biết chính xác mình phải làm gì, làm trong bao lâu và tiêu chuẩn hoàn thành là gì.",
+        motherStrength: "Mẹ có thể tạo nền nếp, kỷ luật và sự ổn định cho con.",
+        motherRisk: "Mẹ có thể quá nghiêm, quá tập trung vào lỗi khiến con thấy áp lực.",
+        communication: "Nên nói rõ từng bước: ‘Mình làm bước 1 trước, sau đó đến bước 2.’",
+        praise: "Khen vào sự bền bỉ: ‘Mẹ thấy con làm rất đều và có trách nhiệm.’",
+        avoid: "Tránh thay đổi luật liên tục, nói chung chung hoặc yêu cầu quá nhiều việc cùng lúc."
+      },
+      5: {
+        name: "Người tự do trải nghiệm",
+        core: "linh hoạt, thích khám phá, cần sự mới mẻ và không gian tự do",
+        gift: "nhanh thích nghi, ham học qua trải nghiệm, hoạt bát và dễ tạo sự hứng thú",
+        pressure: "dễ chống đối khi bị bó buộc quá chặt, bị ép ngồi yên hoặc bị cấm đoán cực đoan",
+        need: "cần lựa chọn linh hoạt, được vận động, được thử và được học qua trải nghiệm",
+        childNeed: "Con cần mẹ biến việc học/việc nhà thành trải nghiệm, có lựa chọn và có nhịp nghỉ.",
+        motherStrength: "Mẹ có thể giúp con mở rộng thế giới, dám thử và không sợ sai.",
+        motherRisk: "Mẹ có thể thiếu kiên nhẫn với những quy trình dài hoặc dễ thay đổi quá nhanh.",
+        communication: "Nên cho lựa chọn có giới hạn: ‘Con chọn làm 10 phút trước hay nghỉ 3 phút rồi làm?’",
+        praise: "Khen vào sự linh hoạt: ‘Mẹ thấy con biết thử cách mới rất hay.’",
+        avoid: "Tránh ép con theo khuôn cứng quá lâu hoặc nói: ‘Ngồi im ngay, không được hỏi nữa.’"
+      },
+      6: {
+        name: "Người nuôi dưỡng yêu thương",
+        core: "ấm áp, trách nhiệm, cần cảm giác được yêu thương và thuộc về gia đình",
+        gift: "biết chăm sóc, có trách nhiệm, hướng về gia đình và mong mọi người hài hòa",
+        pressure: "dễ gồng mình để làm vừa lòng người khác hoặc thấy có lỗi khi bị trách",
+        need: "cần được ghi nhận, được yêu thương vô điều kiện và được bớt áp lực phải hoàn hảo",
+        childNeed: "Con cần mẹ yêu thương rõ ràng, khen sự tử tế và không biến con thành ‘đứa trẻ phải ngoan mọi lúc’. ",
+        motherStrength: "Mẹ có khả năng chăm sóc, tạo tổ ấm và nuôi dưỡng cảm xúc rất tốt.",
+        motherRisk: "Mẹ có thể kỳ vọng cao, muốn con đúng/ngoan/đẹp trong mắt mọi người.",
+        communication: "Nên nói: ‘Mẹ yêu con cả khi con đang học cách sửa lỗi.’",
+        praise: "Khen vào lòng tốt và trách nhiệm: ‘Mẹ thấy con rất biết quan tâm.’",
+        avoid: "Tránh dùng tội lỗi để dạy con: ‘Con làm vậy là mẹ buồn lắm.’"
+      },
+      7: {
+        name: "Người quan sát sâu sắc",
+        core: "sâu sắc, thích tìm hiểu, cần không gian riêng và sự tôn trọng suy nghĩ",
+        gift: "có khả năng phân tích, quan sát tốt, thích tìm bản chất vấn đề và không dễ tin bề mặt",
+        pressure: "dễ khép lại khi bị ép nói ngay, bị xâm phạm riêng tư hoặc bị xem là khó hiểu",
+        need: "cần thời gian suy nghĩ, không gian yên tĩnh và người lớn kiên nhẫn lắng nghe",
+        childNeed: "Con cần mẹ tôn trọng khoảng lặng. Khi con chưa nói, không có nghĩa là con không cảm nhận.",
+        motherStrength: "Mẹ có thể dạy con tư duy sâu, bình tĩnh và biết quan sát trước khi hành động.",
+        motherRisk: "Mẹ có thể xa cách cảm xúc hoặc phân tích nhiều khiến con thấy thiếu sự ấm áp.",
+        communication: "Nên hỏi nhẹ: ‘Con cần thêm thời gian suy nghĩ không? Khi sẵn sàng mẹ nghe.’",
+        praise: "Khen vào chiều sâu: ‘Mẹ thích cách con suy nghĩ kỹ trước khi trả lời.’",
+        avoid: "Tránh ép con nói ngay, hỏi dồn hoặc tự ý xem đồ riêng của con."
+      },
+      8: {
+        name: "Người định hướng thành tựu",
+        core: "mạnh mẽ, thực tế, có nhu cầu được tin tưởng, được thử sức và thấy kết quả rõ",
+        gift: "có tố chất quản lý, biết đặt mục tiêu, thích chinh phục và có ý thức về thành quả",
+        pressure: "dễ căng khi bị hạ thấp năng lực, bị kiểm soát quyền quyết định hoặc thất bại bị phán xét",
+        need: "cần mục tiêu rõ, quyền tự chủ có giới hạn và sự ghi nhận vào năng lực",
+        childNeed: "Con cần được giao việc thật, mục tiêu nhỏ và cơ hội chứng minh mình làm được.",
+        motherStrength: "Mẹ có thể dạy con tư duy mục tiêu, trách nhiệm và bản lĩnh.",
+        motherRisk: "Mẹ có thể quá chú trọng kết quả, vô tình làm con sợ sai hoặc sợ thua.",
+        communication: "Nên nói: ‘Mục tiêu của mình là gì và con muốn chịu trách nhiệm phần nào?’",
+        praise: "Khen vào năng lực và trách nhiệm: ‘Mẹ thấy con rất có tinh thần làm chủ.’",
+        avoid: "Tránh chê con yếu, dọa thất bại hoặc đo tình yêu bằng thành tích."
+      },
+      9: {
+        name: "Người giàu lòng nhân ái",
+        core: "bao dung, cảm xúc rộng, cần ý nghĩa, sự thấu hiểu và lòng nhân văn",
+        gift: "biết nghĩ cho người khác, giàu cảm xúc, dễ đồng cảm và có tinh thần giúp đỡ",
+        pressure: "dễ buồn sâu khi cảm xúc bị phủ nhận hoặc khi thấy môi trường thiếu công bằng",
+        need: "cần được lắng nghe cảm xúc lớn, được sống có ý nghĩa và được hướng dẫn cách đặt ranh giới",
+        childNeed: "Con cần mẹ công nhận cảm xúc và dạy con biết yêu thương mà không tự làm mình kiệt sức.",
+        motherStrength: "Mẹ có thể truyền cho con lòng nhân ái, sự bao dung và lý tưởng sống đẹp.",
+        motherRisk: "Mẹ có thể ôm quá nhiều việc, hy sinh quá nhiều rồi kỳ vọng con hiểu mình.",
+        communication: "Nên nói: ‘Mẹ hiểu điều đó làm con buồn. Mình cùng tìm cách tốt hơn nhé.’",
+        praise: "Khen vào lòng nhân ái: ‘Mẹ thấy con có trái tim rất ấm.’",
+        avoid: "Tránh phủ nhận cảm xúc: ‘Có gì đâu mà buồn’ hoặc bắt con phải chịu đựng."
+      },
+      11: {
+        name: "Người truyền cảm hứng nhạy cảm",
+        core: "trực giác mạnh, nhạy cảm, cần cảm hứng, sự dịu dàng và môi trường cảm xúc an toàn",
+        gift: "có khả năng cảm nhận tinh tế, truyền cảm hứng, sáng tạo và nhìn thấy điều người khác chưa thấy",
+        pressure: "dễ quá tải bởi tiếng ồn, căng thẳng, kỳ vọng lớn hoặc môi trường cảm xúc bất ổn",
+        need: "cần được trấn an, được định hướng nhẹ nhàng và được biến cảm hứng thành hành động nhỏ",
+        childNeed: "Con cần mẹ dịu giọng, giúp con gọi tên cảm xúc và chia nhỏ việc phải làm.",
+        motherStrength: "Mẹ có thể truyền cảm hứng, đánh thức sự tự tin và chiều sâu tinh thần cho con.",
+        motherRisk: "Mẹ dễ kỳ vọng con đặc biệt hoặc vô tình làm con căng vì tiêu chuẩn cao.",
+        communication: "Nên dùng câu: ‘Mẹ ở đây, mình làm từng chút một thôi.’",
+        praise: "Khen vào cảm hứng: ‘Mẹ thấy con cảm nhận rất tinh tế.’",
+        avoid: "Tránh dọa nạt, tạo áp lực mạnh hoặc nói con quá nhạy cảm."
+      },
+      22: {
+        name: "Người kiến tạo lớn",
+        core: "có tiềm năng xây dựng, thực tế nhưng mang tầm nhìn lớn, cần mục tiêu rõ và nền tảng vững",
+        gift: "biết biến ý tưởng thành kế hoạch, có khả năng chịu trách nhiệm và làm việc dài hạn",
+        pressure: "dễ nặng nề khi mục tiêu quá lớn nhưng thiếu hướng dẫn, hoặc khi bị kỳ vọng quá mức",
+        need: "cần mục tiêu lớn được chia nhỏ, người đồng hành thực tế và sự khích lệ bền bỉ",
+        childNeed: "Con cần mẹ giúp chia việc lớn thành bước nhỏ, không gắn giá trị bản thân với thành tích.",
+        motherStrength: "Mẹ có khả năng xây hệ thống, định hướng tương lai và tạo nền móng cho con.",
+        motherRisk: "Mẹ có thể kỳ vọng quá xa khiến con thấy tuổi thơ bị biến thành dự án.",
+        communication: "Nên nói: ‘Việc lớn mình chia thành bước nhỏ, hôm nay chỉ cần hoàn thành bước này.’",
+        praise: "Khen vào sự xây dựng: ‘Mẹ thấy con biết làm từng bước rất chắc.’",
+        avoid: "Tránh giao mục tiêu lớn mà không hỗ trợ hoặc nói: ‘Con phải làm được việc lớn.’"
+      },
+      33: {
+        name: "Người chữa lành yêu thương",
+        core: "giàu yêu thương, có xu hướng chăm sóc, cần được ghi nhận và học cách yêu bản thân",
+        gift: "ấm áp, biết nâng đỡ người khác, có năng lượng chữa lành và truyền yêu thương",
+        pressure: "dễ gánh cảm xúc gia đình, hy sinh quá nhiều hoặc nghĩ mình phải làm người khác vui",
+        need: "cần được yêu thương vô điều kiện và được dạy rằng con không phải cứu tất cả mọi người",
+        childNeed: "Con cần mẹ bảo vệ ranh giới cảm xúc, không để con trở thành người gánh nỗi buồn của người lớn.",
+        motherStrength: "Mẹ có thể tạo môi trường yêu thương, bao dung và chữa lành sâu sắc.",
+        motherRisk: "Mẹ có thể hy sinh quá mức rồi vô thức mong con đáp lại bằng sự ngoan ngoãn hoàn hảo.",
+        communication: "Nên nói: ‘Con được yêu thương cả khi con không cần làm vừa lòng ai.’",
+        praise: "Khen vào tình yêu thương có ranh giới: ‘Mẹ thấy con rất ấm áp và cũng biết chăm sóc mình.’",
+        avoid: "Tránh bắt con chịu trách nhiệm cho cảm xúc của người lớn."
+      }
+    };
+
+    const YEAR_PROFILES = {
+      1: "năm khởi đầu, phù hợp để chủ động, thử cách mới và tạo nền cho chu kỳ mới",
+      2: "năm lắng nghe, hợp tác, chữa lành cảm xúc và xây dựng mối quan hệ mềm mại hơn",
+      3: "năm biểu đạt, học qua giao tiếp, sáng tạo, vui chơi và giải phóng cảm xúc",
+      4: "năm kỷ luật, xây nền, lập kế hoạch, ổn định thói quen và rèn sự bền bỉ",
+      5: "năm thay đổi, trải nghiệm, linh hoạt và học cách thích nghi với cái mới",
+      6: "năm gia đình, trách nhiệm, yêu thương, chăm sóc và điều chỉnh sự kỳ vọng",
+      7: "năm chiêm nghiệm, học sâu, cần không gian riêng và lắng nghe nội tâm nhiều hơn",
+      8: "năm thành tựu, mục tiêu, trách nhiệm, tài chính/kết quả và năng lực làm chủ",
+      9: "năm hoàn tất, buông điều cũ, tha thứ, tổng kết và chuẩn bị cho chu kỳ mới"
+    };
+
+    function normalizeName(str) {
+      return (str || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/Đ/g, "D")
+        .toUpperCase();
+    }
+
+    function sumDigits(input) {
+      return String(input).replace(/\D/g, "").split("").reduce((sum, ch) => sum + Number(ch), 0);
+    }
+
+    function reduceNumber(num, keepMaster = true) {
+      let n = Number(num) || 0;
+      while (n > 9) {
+        if (keepMaster && (n === 11 || n === 22 || n === 33)) return n;
+        n = String(n).split("").reduce((sum, ch) => sum + Number(ch), 0);
+      }
+      return n;
+    }
+
+    function parseDate(input) {
+      const clean = String(input || "").trim().replace(/-/g, "/");
+      const parts = clean.split("/").map(p => p.trim());
+      if (parts.length !== 3) return null;
+      let [d, m, y] = parts.map(Number);
+      if (!Number.isInteger(d) || !Number.isInteger(m) || !Number.isInteger(y)) return null;
+      if (y < 1900 || y > 2100 || m < 1 || m > 12 || d < 1 || d > 31) return null;
+      const date = new Date(y, m - 1, d);
+      if (date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) return null;
+      return { day: d, month: m, year: y, display: String(d).padStart(2, "0") + "/" + String(m).padStart(2, "0") + "/" + y };
+    }
+
+    function formatDateForFile() {
+      const d = new Date();
+      return String(d.getDate()).padStart(2, "0") + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + d.getFullYear();
+    }
+
+    function ageFromDate(dateObj) {
+      const today = new Date();
+      let age = today.getFullYear() - dateObj.year;
+      const beforeBirthday = today.getMonth() + 1 < dateObj.month || (today.getMonth() + 1 === dateObj.month && today.getDate() < dateObj.day);
+      if (beforeBirthday) age--;
+      return Math.max(0, age);
+    }
+
+    function ageStage(age) {
+      if (age <= 3) return "giai đoạn cảm giác an toàn, nhịp sinh hoạt và sự ôm ấp là nền tảng";
+      if (age <= 6) return "giai đoạn hình thành cảm xúc, ngôn ngữ và thói quen ban đầu";
+      if (age <= 11) return "giai đoạn xây nền học tập, tự tin, kỷ luật và cách hợp tác với người lớn";
+      if (age <= 15) return "giai đoạn tiền dậy thì/dậy thì, rất cần được tôn trọng cảm xúc và bản sắc cá nhân";
+      return "giai đoạn trưởng thành dần, cần được đối thoại như một người có suy nghĩ riêng";
+    }
+
+    function nameNumber(name, vowelsOnly = false) {
+      const normalized = normalizeName(name);
+      let total = 0;
+      for (const ch of normalized) {
+        if (!/[A-Z]/.test(ch)) continue;
+        if (vowelsOnly && !VOWELS.has(ch)) continue;
+        total += LETTER_VALUES[ch] || 0;
+      }
+      return reduceNumber(total, true);
+    }
+
+    function lifePath(dateObj) {
+      return reduceNumber(sumDigits(dateObj.display), true);
+    }
+
+    function personalYear(dateObj, targetYear) {
+      const total = sumDigits(String(dateObj.day)) + sumDigits(String(dateObj.month)) + sumDigits(String(targetYear));
+      return reduceNumber(total, false);
+    }
+
+    function calculatePerson(name, dobInput) {
+      const dob = parseDate(dobInput);
+      if (!dob) throw new Error("Ngày sinh chưa đúng định dạng DD/MM/YYYY hoặc ngày không hợp lệ.");
+      return {
+        name: name.trim(),
+        dob,
+        age: ageFromDate(dob),
+        life: lifePath(dob),
+        destiny: nameNumber(name, false),
+        soul: nameNumber(name, true),
+        year: personalYear(dob, new Date().getFullYear())
+      };
+    }
+
+    function p(num) {
+      return PROFILES[num] || PROFILES[reduceNumber(num, false)] || PROFILES[9];
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function numberCards(person) {
+      return `
+        <div class="number-grid">
+          <div class="number-card"><span class="label">Đường đời</span><span class="value">${person.life}</span></div>
+          <div class="number-card"><span class="label">Sứ mệnh</span><span class="value">${person.destiny}</span></div>
+          <div class="number-card"><span class="label">Linh hồn</span><span class="value">${person.soul}</span></div>
+          <div class="number-card"><span class="label">Năm cá nhân</span><span class="value">${person.year}</span></div>
+        </div>
+      `;
+    }
+
+    function personPortrait(person, role) {
+      const life = p(person.life);
+      const destiny = p(person.destiny);
+      const soul = p(person.soul);
+      const yearText = YEAR_PROFILES[person.year];
+      const isMother = role === "mother";
+      return `
+        <div class="info-grid">
+          <div class="info-card">
+            <span class="badge">Đường đời ${person.life} · ${life.name}</span>
+            <h4>${isMother ? "Cách mẹ vận hành trong cuộc sống" : "Nhịp sống tự nhiên của con"}</h4>
+            <p>${capitalize(life.core)}. ${isMother ? life.motherStrength : life.childNeed}</p>
+            <ul>
+              <li><strong>Điểm mạnh:</strong> ${life.gift}.</li>
+              <li><strong>Khi áp lực:</strong> ${life.pressure}.</li>
+              <li><strong>Gợi ý tương tác:</strong> ${life.communication}.</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <span class="badge">Sứ mệnh ${person.destiny} · ${destiny.name}</span>
+            <h4>${isMother ? "Cách mẹ thể hiện vai trò làm mẹ" : "Cách con bộc lộ tài năng"}</h4>
+            <p>Sứ mệnh cho thấy cách một người muốn thể hiện mình ra bên ngoài. Với năng lượng này, ${person.name} có xu hướng ${destiny.core}.</p>
+            <ul>
+              <li><strong>Nên phát huy:</strong> ${destiny.gift}.</li>
+              <li><strong>Dễ vướng:</strong> ${destiny.pressure}.</li>
+              <li><strong>Cách khích lệ:</strong> ${destiny.praise}</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <span class="badge">Linh hồn ${person.soul} · ${soul.name}</span>
+            <h4>${isMother ? "Nhu cầu sâu bên trong của mẹ" : "Điều con thật sự cần để mở lòng"}</h4>
+            <p>Linh hồn là nhu cầu cảm xúc bên trong. ${person.name} thường cần ${soul.need}. Đây là điểm rất quan trọng khi xây dựng sự hòa hợp.</p>
+            <ul>
+              <li><strong>Khi được đáp ứng:</strong> ${soul.gift}.</li>
+              <li><strong>Khi bị chạm vào điểm đau:</strong> ${soul.pressure}.</li>
+              <li><strong>Câu nói phù hợp:</strong> ${soul.communication}</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <span class="badge">Năm cá nhân ${person.year}</span>
+            <h4>Giai đoạn của năm ${new Date().getFullYear()}</h4>
+            <p>Năm nay là ${yearText}. ${isMother ? "Mẹ nên dùng bối cảnh năm này để điều chỉnh kỳ vọng và nhịp đồng hành với con." : "Con có thể phản ứng rõ hơn theo năng lượng năm này, nên mẹ cần quan sát để hỗ trợ đúng cách."}</p>
+            <ul>
+              <li><strong>Việc nên ưu tiên:</strong> ${yearAdvice(person.year, isMother)}</li>
+              <li><strong>Điều nên tránh:</strong> ${yearAvoid(person.year, isMother)}</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    function capitalize(text) {
+      return text ? text.charAt(0).toUpperCase() + text.slice(1) : "";
+    }
+
+    function yearAdvice(num, isMother) {
+      const map = {
+        1: isMother ? "chủ động tạo một cách kết nối mới với con" : "cho con thử một nhiệm vụ mới vừa sức",
+        2: isMother ? "lắng nghe nhiều hơn, giảm phản ứng vội" : "tăng sự trấn an và kết nối cảm xúc",
+        3: isMother ? "nói chuyện nhẹ nhàng, thêm niềm vui vào kỷ luật" : "cho con biểu đạt qua kể chuyện, vẽ, chơi",
+        4: isMother ? "thiết lập lịch trình, luật chơi rõ và nhất quán" : "giúp con xây thói quen nhỏ mỗi ngày",
+        5: isMother ? "linh hoạt hơn trong cách dạy" : "cho con học qua trải nghiệm có giới hạn",
+        6: isMother ? "chữa lành kỳ vọng, tăng sự ấm áp trong gia đình" : "ghi nhận sự tử tế và trách nhiệm của con",
+        7: isMother ? "dành thời gian quan sát, không ép con nói ngay" : "cho con không gian riêng và thời gian suy nghĩ",
+        8: isMother ? "đặt mục tiêu rõ, đo tiến bộ bằng hành động nhỏ" : "giao việc có trách nhiệm và ghi nhận năng lực",
+        9: isMother ? "buông cách tương tác cũ không còn hiệu quả" : "giúp con gọi tên cảm xúc và học cách buông bỏ"
+      };
+      return map[num];
+    }
+
+    function yearAvoid(num, isMother) {
+      const map = {
+        1: "chần chừ quá lâu hoặc bắt mọi thứ phải hoàn hảo mới bắt đầu",
+        2: "lớn tiếng, thúc ép hoặc phớt lờ cảm xúc",
+        3: "làm không khí quá nặng nề, chỉ nói lỗi mà quên niềm vui",
+        4: "thay đổi quy tắc liên tục hoặc giao việc thiếu hướng dẫn",
+        5: "kiểm soát quá chặt, cấm đoán cực đoan",
+        6: "biến yêu thương thành áp lực phải ngoan/phải đúng",
+        7: "hỏi dồn, ép trả lời ngay, xâm phạm khoảng riêng",
+        8: "chỉ nhìn kết quả mà bỏ qua nỗ lực",
+        9: "lôi chuyện cũ ra trách hoặc phủ nhận cảm xúc"
+      };
+      return map[num];
+    }
+
+    function relationTone(mNum, cNum) {
+      if (mNum === cNum) {
+        return "Hai mẹ con có cùng tần số ở trục này nên dễ nhận ra nhau, nhưng cũng dễ lặp lại cùng một điểm mạnh hoặc cùng một điểm yếu. Mẹ cần dùng sự giống nhau để đồng cảm, không dùng nó để kỳ vọng con phải giống mình hoàn toàn.";
+      }
+      const active = [1, 5, 8];
+      const emotional = [2, 6, 9, 11, 33];
+      const structured = [4, 7, 22];
+      const expressive = [3];
+      const mType = groupOf(mNum);
+      const cType = groupOf(cNum);
+      if (mType === cType) return "Hai mẹ con thuộc cùng nhóm năng lượng nên có điểm chung tự nhiên. Tuy nhiên, cách thể hiện có thể khác nhau; mẹ cần quan sát biểu hiện thật của con thay vì suy đoán từ kinh nghiệm của mình.";
+      if (mType === "active" && cType === "emotional") return "Mẹ có xu hướng đi nhanh, muốn giải pháp rõ; con lại cần được cảm nhận an toàn trước. Muốn con hợp tác, mẹ nên lắng nghe cảm xúc trước rồi mới đưa giải pháp.";
+      if (mType === "emotional" && cType === "active") return "Mẹ dễ dùng yêu thương và sự chăm sóc; con lại cần quyền tự chủ. Mẹ nên yêu thương bằng cách trao lựa chọn, không chăm quá mức khiến con thấy bị kiểm soát.";
+      if (mType === "structured" && cType === "expressive") return "Mẹ thiên về nguyên tắc và chiều sâu; con cần biểu đạt và niềm vui. Mẹ nên biến quy tắc thành trò chơi, dùng hình ảnh và câu chuyện để con dễ tiếp nhận.";
+      if (mType === "expressive" && cType === "structured") return "Mẹ dễ truyền cảm hứng bằng lời nói; con lại cần hướng dẫn cụ thể. Mẹ nên giảm nói dài, chuyển thành các bước rõ ràng và thời gian cụ thể.";
+      if (mType === "active" && cType === "structured") return "Mẹ muốn kết quả nhanh; con cần quy trình chắc. Mẹ nên đi chậm hơn, chia việc thành bước nhỏ để con không bị áp lực.";
+      if (mType === "structured" && cType === "active") return "Mẹ cần sự chắc chắn; con muốn được thử và tự quyết. Mẹ nên đặt khung an toàn rồi cho con quyền chọn trong khung đó.";
+      if (mType === "emotional" && cType === "structured") return "Mẹ quan tâm cảm xúc; con cần trật tự và sự rõ ràng. Mẹ nên vừa ấm áp vừa cụ thể: nói nhẹ nhưng có quy tắc rõ.";
+      if (mType === "structured" && cType === "emotional") return "Mẹ có thể phân tích hoặc đưa quy tắc; con lại cần được cảm nhận. Mẹ nên xác nhận cảm xúc trước khi giải thích đúng-sai.";
+      if (mType === "expressive" && cType === "emotional") return "Mẹ có thể dùng sự vui vẻ để kết nối, nhưng con vẫn cần chiều sâu cảm xúc. Mẹ nên hỏi cảm nhận thật của con sau những câu chuyện vui.";
+      if (mType === "emotional" && cType === "expressive") return "Mẹ dễ chăm bằng cảm xúc; con cần được nói và thể hiện. Mẹ nên cho con kể chuyện, vẽ, diễn đạt trước khi kết luận.";
+      return "Hai mẹ con có hai nhịp năng lượng khác nhau. Đây không phải xung khắc, mà là lời nhắc rằng mẹ cần ‘dịch ngôn ngữ yêu thương’ sang cách con dễ tiếp nhận.";
+    }
+
+    function groupOf(num) {
+      if ([1, 5, 8].includes(num)) return "active";
+      if ([2, 6, 9, 11, 33].includes(num)) return "emotional";
+      if ([4, 7, 22].includes(num)) return "structured";
+      if ([3].includes(num)) return "expressive";
+      return "mixed";
+    }
+
+    function axisAnalysis(mother, child) {
+      return `
+        <div class="axis-card">
+          <h4>1. Trục Đường đời: nhịp sống của mẹ và nhịp phát triển của con</h4>
+          <p><strong>Mẹ ${mother.life} · ${p(mother.life).name}</strong> gặp <strong>Con ${child.life} · ${p(child.life).name}</strong>.</p>
+          <p>${relationTone(mother.life, child.life)}</p>
+          <ul>
+            <li><strong>Mẹ nên hiểu:</strong> Con không nhất thiết phản ứng giống mẹ. Điều con cần nhất là ${p(child.life).need}.</li>
+            <li><strong>Cách dẫn dắt:</strong> ${p(child.life).communication}</li>
+            <li><strong>Điểm cần tránh:</strong> ${p(child.life).avoid}</li>
+          </ul>
+        </div>
+        <div class="axis-card">
+          <h4>2. Trục Sứ mệnh: kỳ vọng của mẹ và tài năng con muốn bộc lộ</h4>
+          <p><strong>Sứ mệnh mẹ ${mother.destiny}</strong> cho thấy cách mẹ thể hiện vai trò; <strong>Sứ mệnh con ${child.destiny}</strong> cho thấy cách con muốn được công nhận.</p>
+          <p>${relationTone(mother.destiny, child.destiny)}</p>
+          <ul>
+            <li><strong>Tài năng cần nuôi dưỡng ở con:</strong> ${p(child.destiny).gift}.</li>
+            <li><strong>Khi mẹ kỳ vọng:</strong> hãy biến kỳ vọng thành lời mời gọi, không biến thành áp lực.</li>
+            <li><strong>Cách khích lệ:</strong> ${p(child.destiny).praise}</li>
+          </ul>
+        </div>
+        <div class="axis-card">
+          <h4>3. Trục Linh hồn: nhu cầu yêu thương sâu bên trong</h4>
+          <p><strong>Linh hồn mẹ ${mother.soul}</strong> cần ${p(mother.soul).need}. <strong>Linh hồn con ${child.soul}</strong> cần ${p(child.soul).need}.</p>
+          <p>${relationTone(mother.soul, child.soul)}</p>
+          <ul>
+            <li><strong>Điều con thật sự cần từ mẹ:</strong> ${p(child.soul).childNeed}</li>
+            <li><strong>Câu mở lòng:</strong> ${p(child.soul).communication}</li>
+            <li><strong>Điểm dễ tổn thương:</strong> ${p(child.soul).pressure}.</li>
+          </ul>
+        </div>
+        <div class="axis-card">
+          <h4>4. Trục Năm cá nhân: bối cảnh hiện tại của hai mẹ con</h4>
+          <p>Năm ${new Date().getFullYear()}, mẹ đang ở <strong>năm cá nhân ${mother.year}</strong> - ${YEAR_PROFILES[mother.year]}. Con đang ở <strong>năm cá nhân ${child.year}</strong> - ${YEAR_PROFILES[child.year]}.</p>
+          <ul>
+            <li><strong>Mẹ nên ưu tiên:</strong> ${yearAdvice(mother.year, true)}.</li>
+            <li><strong>Con cần được hỗ trợ:</strong> ${yearAdvice(child.year, false)}.</li>
+            <li><strong>Cách đồng hành:</strong> mỗi tuần mẹ chỉ chọn 1 thói quen nhỏ để làm cùng con, tránh thay đổi quá nhiều cùng lúc.</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    function generateStrengths(mother, child) {
+      return `
+        <div class="info-grid">
+          <div class="info-card">
+            <h4>1. Mẹ có thể trở thành người phiên dịch cảm xúc cho con</h4>
+            <p>Dựa trên Linh hồn của con, điều con cần nhất là ${p(child.soul).need}. Nếu mẹ chịu khó gọi tên cảm xúc trước khi sửa hành vi, con sẽ cảm thấy được hiểu và giảm phản kháng.</p>
+            <p><strong>Hành động:</strong> Mỗi khi con khó chịu, mẹ nói: “Mẹ muốn hiểu điều gì đang xảy ra với con trước.”</p>
+          </div>
+          <div class="info-card">
+            <h4>2. Có thể dùng thế mạnh của con để dẫn dắt con</h4>
+            <p>Con mang năng lượng ${child.destiny} - ${p(child.destiny).name}, có món quà là ${p(child.destiny).gift}. Khi mẹ giao nhiệm vụ đúng theo thế mạnh này, con dễ tự tin hơn.</p>
+            <p><strong>Hành động:</strong> Giao cho con một việc nhỏ mỗi ngày phù hợp với cá tính, rồi khen nỗ lực cụ thể.</p>
+          </div>
+          <div class="info-card">
+            <h4>3. Mẹ có cơ hội tạo một phong cách giáo dục riêng</h4>
+            <p>Năng lượng của mẹ là ${mother.life} - ${p(mother.life).name}. Khi mẹ dùng điểm mạnh này một cách mềm mại, mẹ không chỉ dạy con mà còn giúp con cảm nhận được sự vững vàng.</p>
+            <p><strong>Hành động:</strong> Trước khi góp ý, mẹ tự hỏi: “Điều mình sắp nói giúp con mở ra hay đóng lại?”</p>
+          </div>
+          <div class="info-card">
+            <h4>4. Mối quan hệ có thể chuyển từ kiểm soát sang đồng hành</h4>
+            <p>Bản báo cáo này không nhằm kết luận con là ai, mà giúp mẹ chọn cách nói, cách giao việc, cách khen và cách đặt giới hạn phù hợp hơn.</p>
+            <p><strong>Hành động:</strong> Mẹ dùng nguyên tắc 3 bước: lắng nghe trước, hướng dẫn sau, thống nhất hành động cuối cùng.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function generateConflicts(mother, child) {
+      return `
+        <div class="insight-box amber">
+          <h4>1. Dễ mâu thuẫn khi mẹ dùng “ngôn ngữ của mẹ” nhưng con cần “ngôn ngữ của con”</h4>
+          <p>Mẹ có thể nghĩ mình đang thương con, đang dạy con, nhưng con lại tiếp nhận thành áp lực nếu cách nói không hợp với nhu cầu ${p(child.soul).need}. Cách hóa giải là mẹ đổi từ ra lệnh sang kết nối.</p>
+          <p><strong>Câu chuyển hóa:</strong> “Mẹ muốn mình cùng tìm cách, không phải mẹ mắng con.”</p>
+        </div>
+        <div class="insight-box rose">
+          <h4>2. Dễ căng khi con bị chạm vào điểm áp lực</h4>
+          <p>Với năng lượng của con, điểm dễ đóng lại là: ${p(child.life).pressure}. Nếu mẹ cứ tiếp tục nói khi con đã đóng cảm xúc, cuộc trò chuyện sẽ chuyển thành đối đầu.</p>
+          <p><strong>Cách hóa giải:</strong> tạm dừng 3-5 phút, hạ giọng, gọi tên cảm xúc rồi mới quay lại vấn đề.</p>
+        </div>
+        <div class="insight-box violet">
+          <h4>3. Dễ hiểu lầm giữa kỳ vọng và khả năng tiếp nhận</h4>
+          <p>Mẹ có thể kỳ vọng con tiến bộ nhanh, nhưng con chỉ hợp tác tốt khi được dẫn theo cách ${p(child.destiny).communication}. Nếu mẹ muốn con thay đổi, hãy chia nhỏ hành động và khen từng bước.</p>
+          <p><strong>Cách hóa giải:</strong> thay “Con phải sửa ngay” bằng “Hôm nay mình chỉ tập trung sửa một việc nhỏ này thôi.”</p>
+        </div>
+      `;
+    }
+
+    function communicationGuide(mother, child) {
+      const childLife = p(child.life);
+      const childSoul = p(child.soul);
+      return `
+        <div class="info-grid">
+          <div class="info-card">
+            <h4>Cách mở đầu cuộc trò chuyện</h4>
+            <p>Bắt đầu bằng sự an toàn thay vì phán xét. Với con, câu mở đầu phù hợp là: <strong>“Mẹ muốn nghe con nói trước, rồi mình cùng tìm cách.”</strong></p>
+          </div>
+          <div class="info-card">
+            <h4>Cách đặt câu hỏi</h4>
+            <p>Không hỏi dồn “Tại sao con lại như thế?”. Hãy hỏi: <strong>“Lúc đó con đang nghĩ gì?”</strong> hoặc <strong>“Con muốn mẹ giúp phần nào?”</strong></p>
+          </div>
+          <div class="info-card">
+            <h4>Cách khen</h4>
+            <p>${childLife.praise} Khen cụ thể vào hành vi giúp con hiểu mình đã làm tốt ở đâu, thay vì chỉ nghe “giỏi quá”.</p>
+          </div>
+          <div class="info-card">
+            <h4>Cách góp ý</h4>
+            <p>Góp ý theo công thức: <strong>ghi nhận nỗ lực → nêu một điểm cần sửa → đưa lựa chọn nhỏ</strong>. Ví dụ: “Mẹ thấy con đã cố gắng. Việc cần sửa là cách nói. Con muốn nói lại bây giờ hay 2 phút nữa?”</p>
+          </div>
+          <div class="info-card">
+            <h4>Cách đặt giới hạn</h4>
+            <p>Giới hạn không phải đe dọa. Hãy nói rõ: <strong>“Mẹ hiểu con muốn..., nhưng nguyên tắc của nhà mình là... Con được chọn cách thực hiện trong 2 lựa chọn này.”</strong></p>
+          </div>
+          <div class="info-card">
+            <h4>Khi con không hợp tác</h4>
+            <p>Điều nên tránh là ${childSoul.avoid}. Hãy tạm dừng, hạ giọng và quay lại bằng câu: <strong>${childSoul.communication}</strong></p>
+          </div>
+        </div>
+      `;
+    }
+
+    function phraseTable(child) {
+      const rows = [
+        ["Con không nghe lời", "Sao con lúc nào cũng cãi?", "Mẹ muốn nghe con nghĩ gì trước, rồi mình cùng thống nhất cách làm.", "Câu mới giúp con giảm phòng thủ và cảm thấy được tôn trọng trước khi được hướng dẫn."],
+        ["Con làm sai", "Mẹ đã nói rồi mà con không nghe.", "Mình xem lại bước nào chưa ổn và sửa một bước nhỏ nhé.", "Câu mới chuyển lỗi sai thành bài học, phù hợp với nhu cầu được khích lệ của con."],
+        ["Con chậm/lười", "Nhanh lên, con làm mẹ mệt quá.", "Mình bắt đầu 5 phút thôi. Mẹ ngồi cạnh con ở bước đầu.", "Câu mới giảm áp lực và giúp con dễ bắt đầu hơn."],
+        ["Con buồn/cáu", "Có gì đâu mà khóc/cáu.", "Mẹ thấy con đang khó chịu. Con muốn mẹ ôm, nghe con nói, hay để con yên 3 phút?", "Câu mới công nhận cảm xúc và cho con lựa chọn an toàn."],
+        ["Con thiếu tự tin", "Việc này dễ mà sao con sợ?", "Mẹ không cần con làm hoàn hảo. Mẹ chỉ cần con thử bước đầu tiên.", "Câu mới giúp con tách giá trị bản thân khỏi kết quả."],
+        ["Con bị so sánh", "Nhìn bạn kia mà học.", "Mẹ muốn con tốt hơn chính con hôm qua, không cần giống ai khác.", "Câu mới nuôi dưỡng động lực nội tại và giảm tổn thương."],
+      ];
+      return `
+        <table>
+          <thead>
+            <tr>
+              <th>Tình huống</th>
+              <th>Câu dễ gây phản kháng</th>
+              <th>Câu nên thay thế</th>
+              <th>Vì sao phù hợp hơn</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function conflictScripts(child) {
+      return `
+        <div class="script-box">
+          <h4>Kịch bản 1: Khi con không muốn làm bài/không muốn làm việc cần làm</h4>
+          <p><strong>Bước 1 - Công nhận:</strong> “Mẹ thấy con chưa muốn bắt đầu.”</p>
+          <p><strong>Bước 2 - Đặt giới hạn:</strong> “Việc này vẫn cần làm vì nó quan trọng.”</p>
+          <p><strong>Bước 3 - Cho lựa chọn:</strong> “Con chọn làm 5 phút trước hay uống nước rồi làm 5 phút?”</p>
+          <p><strong>Bước 4 - Ghi nhận:</strong> “Cảm ơn con vì đã bắt đầu. Mẹ ghi nhận nỗ lực này.”</p>
+        </div>
+        <div class="script-box">
+          <h4>Kịch bản 2: Khi con cáu, khóc hoặc phản ứng mạnh</h4>
+          <p><strong>Bước 1 - Hạ nhịp:</strong> Mẹ dừng lại, nói chậm hơn, không tranh đúng-sai ngay.</p>
+          <p><strong>Bước 2 - Gọi tên cảm xúc:</strong> “Mẹ thấy con đang rất khó chịu/buồn/tức.”</p>
+          <p><strong>Bước 3 - Trao an toàn:</strong> “Mẹ ở đây. Khi con sẵn sàng, mẹ nghe con nói.”</p>
+          <p><strong>Bước 4 - Quay lại hành vi:</strong> “Cảm xúc của con được lắng nghe, nhưng mình vẫn cần chọn cách nói không làm đau nhau.”</p>
+        </div>
+        <div class="script-box">
+          <h4>Kịch bản 3: Khi mẹ lỡ nóng giận</h4>
+          <p><strong>Câu sửa sai của mẹ:</strong> “Lúc nãy mẹ đã nói hơi nặng. Mẹ xin lỗi vì cách nói đó. Việc con cần sửa vẫn còn, nhưng mẹ sẽ nói lại bằng cách bình tĩnh hơn.”</p>
+          <p>Câu này rất mạnh vì con học được rằng người lớn cũng biết nhận lỗi, và việc sửa sai không làm mất đi sự tôn trọng.</p>
+        </div>
+      `;
+    }
+
+    function sevenDayPlan(child) {
+      const profile = p(child.life);
+      const days = [
+        ["Ngày 1", "10 phút lắng nghe không sửa sai", "Mẹ hỏi: “Dạo này điều gì làm con vui nhất hoặc khó chịu nhất?” rồi chỉ nghe, chưa vội khuyên."],
+        ["Ngày 2", "Khen một điểm cụ thể", `${profile.praise} Sau đó mẹ nói thêm: “Mẹ muốn nhìn thấy điều này nhiều hơn ở con.”`],
+        ["Ngày 3", "Cho con một quyền lựa chọn nhỏ", "Mẹ đưa 2 lựa chọn đều chấp nhận được, ví dụ giờ làm bài, thứ tự việc cần làm, hoặc cách dọn góc học tập."],
+        ["Ngày 4", "Cùng con làm một việc vui", "Cùng đi bộ, nấu món nhỏ, đọc sách, vẽ, chơi trò ngắn. Mục tiêu là kết nối, không phải dạy dỗ."],
+        ["Ngày 5", "Thiết lập một nguyên tắc gia đình", "Mẹ cùng con thống nhất một nguyên tắc nhỏ: giờ ngủ, giờ học, cách nói chuyện khi giận."],
+        ["Ngày 6", "Tập xử lý cảm xúc", "Khi có cảm xúc mạnh, mẹ hướng dẫn con gọi tên: “Con đang buồn, tức, lo hay thất vọng?”"],
+        ["Ngày 7", "Tổng kết tuần bằng sự ghi nhận", "Mẹ hỏi: “Tuần này con thấy mình tiến bộ ở điểm nào?” rồi mẹ chia sẻ một điểm mẹ biết ơn con."],
+      ];
+      return `
+        <table>
+          <thead>
+            <tr><th>Ngày</th><th>Hành động</th><th>Cách thực hiện</th></tr>
+          </thead>
+          <tbody>
+            ${days.map(d => `<tr><td><strong>${d[0]}</strong></td><td>${d[1]}</td><td>${d[2]}</td></tr>`).join("")}
+          </tbody>
+        </table>
+        <div class="insight-box green">
+          <p><strong>Nguyên tắc 7 ngày:</strong> làm ít nhưng đều. Mỗi ngày chỉ cần 10-15 phút chất lượng. Sự hòa hợp không đến từ một bài giảng dài, mà đến từ những khoảnh khắc con cảm thấy: “Mẹ hiểu mình và vẫn dẫn dắt mình.”</p>
+        </div>
+      `;
+    }
+
+    function summaryBullets(mother, child) {
+      return `
+        <div class="insight-box green">
+          <ul>
+            <li><strong>Điểm nổi bật 1:</strong> Con có Đường đời ${child.life} - ${p(child.life).name}, nên cách mẹ dẫn dắt hiệu quả nhất là ${p(child.life).communication.toLowerCase()}.</li>
+            <li><strong>Điểm nổi bật 2:</strong> Nhu cầu cảm xúc sâu của con nằm ở Linh hồn ${child.soul}: ${p(child.soul).need}. Đây là chìa khóa để con mở lòng.</li>
+            <li><strong>Điểm nổi bật 3:</strong> Mẹ mang Đường đời ${mother.life} - ${p(mother.life).name}. Khi mẹ dùng điểm mạnh của mình một cách mềm mại, mẹ sẽ trở thành người dẫn đường rất tốt cho con.</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    function generateReport(mother, child) {
+      const year = new Date().getFullYear();
+      const childAgeStage = ageStage(child.age);
+      return `
+        <article class="report">
+          <div class="report-cover">
+            <h2>Báo cáo Tâm Số Học Mẹ & Con</h2>
+            <p>Bản báo cáo này tập trung vào cách thấu hiểu, giao tiếp, động viên và đồng hành giữa mẹ và con dựa trên 4 chỉ số: Đường đời, Sứ mệnh, Linh hồn và Năm cá nhân.</p>
+            <div class="meta-grid">
+              <div class="meta-card"><strong>Mẹ</strong><span>${escapeHtml(mother.name)} · ${mother.dob.display}</span></div>
+              <div class="meta-card"><strong>Con</strong><span>${escapeHtml(child.name)} · ${child.dob.display} · ${child.age} tuổi</span></div>
+            </div>
+          </div>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">1</span>Tổng quan mối quan hệ mẹ và con</h3>
+            <p>Ở độ tuổi hiện tại, con đang trong ${childAgeStage}. Vì vậy, báo cáo không chỉ đọc con số, mà chuyển con số thành cách mẹ nói chuyện, đặt giới hạn, khích lệ và xử lý mâu thuẫn sao cho con dễ tiếp nhận hơn.</p>
+            ${summaryBullets(mother, child)}
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">2</span>Bảng 4 chỉ số cốt lõi</h3>
+            <h4 class="sub-title">Mẹ: ${escapeHtml(mother.name)}</h4>
+            ${numberCards(mother)}
+            <h4 class="sub-title">Con: ${escapeHtml(child.name)}</h4>
+            ${numberCards(child)}
+            <div class="footer-note">Cách tính: Đường đời lấy tổng chữ số ngày/tháng/năm sinh; Sứ mệnh lấy tổng giá trị chữ cái trong họ tên; Linh hồn lấy tổng nguyên âm; Năm cá nhân lấy ngày + tháng sinh + năm ${year}. Các số 11, 22, 33 được giữ là số đặc biệt ở các chỉ số cốt lõi.</div>
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">3</span>Chân dung năng lượng của mẹ</h3>
+            ${personPortrait(mother, "mother")}
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">4</span>Chân dung năng lượng của con</h3>
+            ${personPortrait(child, "child")}
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">5</span>Bản đồ tương tác mẹ-con</h3>
+            <p>Đây là phần quan trọng nhất của báo cáo. Mục tiêu không phải là xem mẹ và con “hợp hay không hợp”, mà là tìm ra cách mẹ chuyển ngôn ngữ yêu thương của mình thành cách con dễ tiếp nhận.</p>
+            ${axisAnalysis(mother, child)}
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">6</span>Điểm dễ hòa hợp</h3>
+            ${generateStrengths(mother, child)}
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">7</span>Điểm dễ xung đột và cách hóa giải</h3>
+            ${generateConflicts(mother, child)}
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">8</span>Cách mẹ nên giao tiếp với con</h3>
+            ${communicationGuide(mother, child)}
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">9</span>Câu nên nói và câu nên tránh</h3>
+            <p>Bảng này giúp mẹ dùng ngay trong đời sống hằng ngày. Khi thay đổi câu nói, mẹ không chỉ thay đổi lời nói, mà thay đổi cảm giác an toàn của con.</p>
+            ${phraseTable(child)}
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">10</span>Kịch bản xử lý mâu thuẫn</h3>
+            ${conflictScripts(child)}
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">11</span>Kế hoạch 7 ngày kết nối mẹ-con</h3>
+            ${sevenDayPlan(child)}
+          </section>
+
+          <section class="section">
+            <h3 class="section-title"><span class="num">12</span>Kết luận</h3>
+            <div class="insight-box green">
+              <p>Tâm số học nên được dùng như một tấm bản đồ tham khảo để mẹ hiểu con sâu hơn, không phải chiếc nhãn cố định để đóng khung con. Điều quan trọng nhất vẫn là mẹ quan sát con trong đời sống thật, lắng nghe cảm xúc thật và điều chỉnh cách đồng hành từng ngày.</p>
+              <p><strong>Thông điệp trọng tâm:</strong> Khi con cảm thấy được hiểu, con sẽ dễ được dẫn dắt. Khi mẹ bớt kiểm soát và tăng kết nối, kỷ luật sẽ trở nên nhẹ hơn nhưng hiệu quả hơn.</p>
+            </div>
+          </section>
+        </article>
+      `;
+    }
+
+    document.getElementById("numerologyForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const errorBox = document.getElementById("errorBox");
+      errorBox.style.display = "none";
+      try {
+        const motherName = document.getElementById("motherName").value.trim();
+        const motherDob = document.getElementById("motherDob").value.trim();
+        const childName = document.getElementById("childName").value.trim();
+        const childDob = document.getElementById("childDob").value.trim();
+        if (!motherName || !motherDob || !childName || !childDob) {
+          throw new Error("Vui lòng nhập đầy đủ họ tên và ngày sinh của mẹ và con.");
+        }
+        const mother = calculatePerson(motherName, motherDob);
+        const child = calculatePerson(childName, childDob);
+        document.getElementById("report-content").innerHTML = generateReport(mother, child);
+        document.getElementById("emptyState").style.display = "none";
+        document.getElementById("reportActions").style.display = "grid";
+        setTimeout(() => document.getElementById("report-content").scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+      } catch (err) {
+        errorBox.textContent = err.message;
+        errorBox.style.display = "block";
+      }
+    });
+
+    function fillExample() {
+      document.getElementById("motherName").value = "Nguyễn Thị An";
+      document.getElementById("motherDob").value = "15/08/1990";
+      document.getElementById("childName").value = "Nguyễn Minh Anh";
+      document.getElementById("childDob").value = "20/05/2018";
+    }
+
+    function clearForm() {
+      document.getElementById("numerologyForm").reset();
+      document.getElementById("report-content").innerHTML = "";
+      document.getElementById("emptyState").style.display = "block";
+      document.getElementById("reportActions").style.display = "none";
+      document.getElementById("errorBox").style.display = "none";
+    }
+
+    async function exportPDF() {
+      const element = document.getElementById("report-content");
+      if (!element || !element.innerHTML.trim()) {
+        alert("Vui lòng tạo báo cáo trước khi xuất PDF.");
+        return;
+      }
+
+      if (typeof html2pdf === "undefined") {
+        alert("Thư viện xuất PDF chưa tải được. Anh có thể bấm nút In / Lưu PDF để lưu báo cáo.");
+        window.print();
+        return;
+      }
+
+      try {
+        const clone = element.cloneNode(true);
+        clone.classList.add("pdf-safe");
+        clone.style.width = "794px";
+        clone.style.backgroundColor = "#ffffff";
+        clone.style.color = "#111827";
+        clone.style.fontFamily = "Arial, Helvetica, sans-serif";
+
+        const temp = document.createElement("div");
+        temp.style.position = "fixed";
+        temp.style.left = "-9999px";
+        temp.style.top = "0";
+        temp.style.backgroundColor = "#ffffff";
+        temp.appendChild(clone);
+        document.body.appendChild(temp);
+
+        const fileName = "Bao-cao-tam-so-hoc-me-va-con-" + formatDateForFile() + ".pdf";
+        const options = {
+          margin: 8,
+          filename: fileName,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+          pagebreak: { mode: ["css", "legacy"] }
+        };
+
+        await html2pdf().set(options).from(clone).save();
+        document.body.removeChild(temp);
+      } catch (error) {
+        console.error("PDF export error:", error);
+        alert("Xuất PDF chưa thành công. Anh bấm nút In / Lưu PDF để lưu bằng trình duyệt nhé.");
+      }
+    }
+
+    function copyReportText() {
+      const element = document.getElementById("report-content");
+      if (!element || !element.innerText.trim()) {
+        alert("Vui lòng tạo báo cáo trước khi copy.");
+        return;
+      }
+      navigator.clipboard.writeText(element.innerText).then(() => {
+        alert("Đã copy nội dung báo cáo.");
+      }).catch(() => {
+        alert("Trình duyệt chưa cho phép copy tự động. Anh có thể bôi đen nội dung và copy thủ công.");
+      });
+    }
+  </script>
+</body>
+</html>
